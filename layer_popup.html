@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Layer Popup</title>
+	
+	<!-- css -->
+	<style>
+		/* button */
+		button{position:relative; z-index:99999}
+		
+		/* layer popup */
+		.layerPopWrap{display:none; overflow:auto; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; text-align:center; background:rgba(0,0,0,0.5);}
+		.layerPopWrap:after{content:''; display:inline-block; height:100%; vertical-align:middle;}
+		.layerPopWrap .layerPop{display:inline-block; position:relative; vertical-align:middle; margin:50px auto; width:500px; height:300px; overflow-y:auto; text-align:left; background:#fff; transition:opacity 0.5s;}
+	</style>
+	
+	<!-- js -->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script>
+		//팝업 열기
+		function showLayer(e){
+			thisLayer = $("#"+e);
+			thisLayer.attr("tabindex",0).show().focus();
+			
+			$("html").css("overflow-y", "hidden");
+		}
+		
+		//팝업 닫기
+		function hideLayer(e){
+			thisLayer = $("#"+e);
+			thisLayer.hide().focus();
+			
+			$("html").css("overflow-y","auto");
+		}
+	</script>
+</head>
+<body>
+	
+	<button type="button" onClick="showLayer('layer');">Show</button>
+	<button type="button" onClick="hideLayer('layer');">Hide</button>
+	
+	<div id="layer" class="layerPopWrap">
+		<div class="layerPop">
+			Layer Popup
+		</div>
+	</div>
+
+</body>
+</html>
