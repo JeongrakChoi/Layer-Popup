@@ -24,27 +24,42 @@
 		function showLayer(e){
 			thisLayer = $("#"+e);
 			thisLayer.attr("tabindex",0).show().focus();
-			
-			$("html").css("overflow-y", "hidden");
+			stopScroll();
 		}
 		
 		//팝업 닫기
 		function hideLayer(e){
 			thisLayer = $("#"+e);
 			thisLayer.hide().focus();
+			playScroll();
+		}
+		
+		//스크롤 활성화
+		function playScroll(){
+			$('.wrap').removeAttr('style');
+			$(window).scrollTop(wrapPostion);
+		}
+		
+		//스크롤 비활성화
+		function stopScroll(){
+			wrapPostion = $(window).scrollTop();
 			
-			$("html").css("overflow-y","auto");
+			if (wrapPostion != 0){
+				$('.wrap').css({ 'position':'fixed', 'left':0, 'top':-wrapPostion, 'width':'100%', 'height':'100%' });
+			};
 		}
 	</script>
 </head>
 <body>
 	
-	<button type="button" onClick="showLayer('layer');">Show</button>
-	<button type="button" onClick="hideLayer('layer');">Hide</button>
-	
-	<div id="layer" class="layerPopWrap">
-		<div class="layerPop">
-			Layer Popup
+	<div class="wrap">
+		<button type="button" onClick="showLayer('layer');">Show</button>
+		<button type="button" onClick="hideLayer('layer');">Hide</button>
+		
+		<div id="layer" class="layerPopWrap">
+			<div class="layerPop">
+				Layer Popup
+			</div>
 		</div>
 	</div>
 
